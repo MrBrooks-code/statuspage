@@ -1,4 +1,4 @@
-# Migration Status Page
+# StatusPage
 
 A lightweight, single-page status dashboard for tracking short-duration migration events. Built with [Astro](https://astro.build/) and driven entirely by a single YAML configuration file.
 
