@@ -1,0 +1,32 @@
+# Dependencies
+node_modules/
+
+# Astro
+dist/
+.astro/
+
+# Environment
+.env
+.env.*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# Terraform
+scripts/s3/terraform/.terraform/
+scripts/s3/terraform/.terraform.lock.hcl
+scripts/s3/terraform/terraform.tfstate
+scripts/s3/terraform/terraform.tfstate.backup
+scripts/s3/terraform/*.tfplan
+
+# Claude
+.claude/
+.terraform.lock.hcl

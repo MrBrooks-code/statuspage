@@ -1,0 +1,54 @@
+---
+import TimelineEvent from "./TimelineEvent.astro";
+
+interface Update {
+  date: string;
+  message: string;
+}
+
+interface Props {
+  updates: Update[];
+}
+
+const { updates } = Astro.props;
+
+const sortedUpdates = [...updates].sort(
+  (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+);
+---
+
+<section class="timeline">
+  <h2 class="timeline__heading">Recent Updates</h2>
+  <div class="timeline__list">
+    {sortedUpdates.map((update) => (
+      <TimelineEvent update={update} />
+    ))}
+  </div>
+</section>
+
+<style>
+  .timeline {
+    margin-top: var(--space-2xl);
+  }
+
+  .timeline__heading {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: var(--space-lg);
+  }
+
+  .timeline__list {
+    position: relative;
+    padding-left: 0;
+  }
+
+  .timeline__list::before {
+    content: "";
+    position: absolute;
+    left: 5px;
+    top: 6px;
+    bottom: 6px;
+    width: 2px;
+    background: var(--color-timeline-line);
+  }
+</style>

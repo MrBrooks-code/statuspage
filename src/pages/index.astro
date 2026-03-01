@@ -1,0 +1,61 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import Banner from "../components/Banner.astro";
+import SummaryMetrics from "../components/SummaryMetrics.astro";
+import ActivityList from "../components/ActivityList.astro";
+import Timeline from "../components/Timeline.astro";
+import data from "../data/migrations.yaml";
+
+const branding = data.branding;
+---
+
+<BaseLayout
+  title={data.siteTitle}
+  description={data.siteDescription}
+  brandPrimary={branding?.primaryColor}
+  brandSecondary={branding?.secondaryColor}
+>
+  <SiteHeader
+    companyName={branding?.companyName}
+    logoUrl={branding?.logoUrl}
+  />
+  <Banner activities={data.activities} />
+  <main class="container">
+    <header class="page-header">
+      <h1>{data.siteTitle}</h1>
+      <p>{data.siteDescription}</p>
+    </header>
+    <SummaryMetrics activities={data.activities} />
+    <ActivityList activities={data.activities} />
+    <Timeline updates={data.updates} />
+  </main>
+  <footer class="container page-footer">
+    <p>Last updated at build time. All data is static.</p>
+  </footer>
+</BaseLayout>
+
+<style>
+  .page-header {
+    margin-top: var(--space-xl);
+  }
+
+  .page-header h1 {
+    font-size: 1.75rem;
+    font-weight: 800;
+  }
+
+  .page-header p {
+    color: var(--color-text-secondary);
+    margin-top: var(--space-xs);
+  }
+
+  .page-footer {
+    margin-top: var(--space-2xl);
+    padding: var(--space-lg) 0;
+    border-top: 1px solid var(--color-border-light);
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+  }
+</style>

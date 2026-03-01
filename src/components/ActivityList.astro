@@ -1,0 +1,37 @@
+---
+import ActivityCard from "./ActivityCard.astro";
+
+interface Task {
+  name: string;
+  status: string;
+}
+
+interface Activity {
+  id: string;
+  name: string;
+  description: string;
+  status: string;
+  tasks: Task[];
+}
+
+interface Props {
+  activities: Activity[];
+}
+
+const { activities } = Astro.props;
+---
+
+<section class="activity-list">
+  <h2 class="activity-list__heading">Migration Activities</h2>
+  {activities.map((activity) => (
+    <ActivityCard activity={activity} />
+  ))}
+</section>
+
+<style>
+  .activity-list__heading {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: var(--space-md);
+  }
+</style>

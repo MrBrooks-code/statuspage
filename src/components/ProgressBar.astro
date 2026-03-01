@@ -1,0 +1,47 @@
+---
+interface Props {
+  completed: number;
+  total: number;
+}
+
+const { completed, total } = Astro.props;
+const percentage = total > 0 ? Math.round((completed / total) * 100) : 0;
+---
+
+<div class="progress-bar" role="progressbar" aria-valuenow={percentage} aria-valuemin={0} aria-valuemax={100}>
+  <div class="progress-bar__track">
+    <div class="progress-bar__fill" style={`width: ${percentage}%`}></div>
+  </div>
+  <span class="progress-bar__label">{percentage}%</span>
+</div>
+
+<style>
+  .progress-bar {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+  }
+
+  .progress-bar__track {
+    flex: 1;
+    height: 8px;
+    background: var(--color-progress-track);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+  }
+
+  .progress-bar__fill {
+    height: 100%;
+    background: var(--color-progress-fill);
+    border-radius: var(--radius-full);
+    transition: width 0.3s ease;
+  }
+
+  .progress-bar__label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    min-width: 3ch;
+    text-align: right;
+  }
+</style>

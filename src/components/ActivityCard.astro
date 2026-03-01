@@ -1,0 +1,112 @@
+---
+import StatusBadge from "./StatusBadge.astro";
+import ProgressBar from "./ProgressBar.astro";
+import SubTaskRow from "./SubTaskRow.astro";
+
+interface Task {
+  name: string;
+  status: string;
+}
+
+interface Props {
+  activity: {
+    id: string;
+    name: string;
+    description: string;
+    status: string;
+    tasks: Task[];
+  };
+}
+
+const { activity } = Astro.props;
+const completedTasks = activity.tasks.filter((t) => t.status === "completed").length;
+const isActive = activity.status === "in-progress" || activity.status === "blocked";
+---
+
+<details class="activity-card" open={isActive}>
+  <summary class="activity-card__summary">
+    <div class="activity-card__header">
+      <h3 class="activity-card__name">{activity.name}</h3>
+      <StatusBadge status={activity.status} />
+    </div>
+    <div class="activity-card__meta">
+      <div class="activity-card__progress">
+        <ProgressBar completed={completedTasks} total={activity.tasks.length} />
+      </div>
+    </div>
+    <p class="activity-card__description">{activity.description}</p>
+  </summary>
+  <div class="activity-card__tasks">
+    {activity.tasks.map((task) => (
+      <SubTaskRow task={task} />
+    ))}
+  </div>
+</details>
+
+<style>
+  .activity-card {
+    background: var(--color-bg-surface);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    margin-bottom: var(--space-md);
+  }
+
+  .activity-card__summary {
+    cursor: pointer;
+    padding: var(--space-lg);
+    list-style: none;
+  }
+
+  .activity-card__summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .activity-card__summary::marker {
+    content: "";
+  }
+
+  .activity-card__summary:hover {
+    background: var(--color-bg-surface-hover);
+    border-radius: var(--radius-lg);
+  }
+
+  .activity-card[open] .activity-card__summary {
+    border-bottom: 1px solid var(--color-border-light);
+  }
+
+  .activity-card__header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    flex-wrap: wrap;
+    margin-bottom: var(--space-sm);
+  }
+
+  .activity-card__name {
+    font-size: 1.1rem;
+    font-weight: 700;
+  }
+
+  .activity-card__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md) var(--space-xl);
+    align-items: center;
+    margin-bottom: var(--space-sm);
+  }
+
+  .activity-card__progress {
+    flex: 1;
+    min-width: 150px;
+  }
+
+  .activity-card__description {
+    font-size: 0.85rem;
+    color: var(--color-text-secondary);
+  }
+
+  .activity-card__tasks {
+    padding: 0;
+  }
+</style>

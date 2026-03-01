@@ -1,0 +1,14 @@
+{
+  "name": "migration-statuspage",
+  "type": "module",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@modyfi/vite-plugin-yaml": "^1.1.1",
+    "astro": "^5.0.0"
+  }
+}

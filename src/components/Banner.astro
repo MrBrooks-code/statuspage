@@ -1,0 +1,73 @@
+---
+interface Activity {
+  status: string;
+}
+
+interface Props {
+  activities: Activity[];
+}
+
+const { activities } = Astro.props;
+
+function computeHealth(activities: Activity[]): { level: string; label: string; description: string } {
+  const statuses = activities.map((a) => a.status);
+  if (statuses.some((s) => s === "blocked")) {
+    return { level: "red", label: "Action Required", description: "One or more activities are blocked." };
+  }
+  if (statuses.every((s) => s === "completed")) {
+    return { level: "green", label: "All Migrations Complete", description: "All activities have been completed successfully." };
+  }
+  if (statuses.some((s) => s === "in-progress")) {
+    return { level: "blue", label: "Migrations In Progress", description: "Activities are actively being worked on." };
+  }
+  return { level: "gray", label: "Not Started", description: "No migration activities have started yet." };
+}
+
+const health = computeHealth(activities);
+---
+
+<div class="banner" data-level={health.level} role="status">
+  <div class="container banner__inner">
+    <strong class="banner__label">{health.label}</strong>
+    <span class="banner__description">{health.description}</span>
+  </div>
+</div>
+
+<style>
+  .banner {
+    padding: var(--space-md) 0;
+    color: #fff;
+  }
+
+  .banner__inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-sm) var(--space-md);
+  }
+
+  .banner__label {
+    font-size: 1.1rem;
+  }
+
+  .banner__description {
+    font-size: 0.9rem;
+    opacity: 0.9;
+  }
+
+  .banner[data-level="green"] {
+    background: var(--color-green);
+  }
+
+  .banner[data-level="blue"] {
+    background: var(--color-blue);
+  }
+
+  .banner[data-level="red"] {
+    background: var(--color-red);
+  }
+
+  .banner[data-level="gray"] {
+    background: var(--color-gray);
+  }
+</style>

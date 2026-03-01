@@ -1,0 +1,42 @@
+---
+import StatusBadge from "./StatusBadge.astro";
+
+interface Props {
+  task: {
+    name: string;
+    status: string;
+  };
+}
+
+const { task } = Astro.props;
+---
+
+<div class="subtask-row">
+  <div class="subtask-row__header">
+    <span class="subtask-row__name">{task.name}</span>
+    <StatusBadge status={task.status} />
+  </div>
+</div>
+
+<style>
+  .subtask-row {
+    padding: var(--space-md);
+    border-bottom: 1px solid var(--color-border-light);
+  }
+
+  .subtask-row:last-child {
+    border-bottom: none;
+  }
+
+  .subtask-row__header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    flex-wrap: wrap;
+  }
+
+  .subtask-row__name {
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+</style>

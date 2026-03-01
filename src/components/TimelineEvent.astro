@@ -1,0 +1,72 @@
+---
+interface Props {
+  update: {
+    date: string;
+    message: string;
+  };
+}
+
+const { update } = Astro.props;
+
+const date = new Date(update.date);
+const formattedDate = date.toLocaleDateString("en-US", {
+  month: "short",
+  day: "numeric",
+  year: "numeric",
+});
+const formattedTime = date.toLocaleTimeString("en-US", {
+  hour: "numeric",
+  minute: "2-digit",
+});
+---
+
+<div class="timeline-event">
+  <div class="timeline-event__dot" aria-hidden="true"></div>
+  <div class="timeline-event__content">
+    <time class="timeline-event__time" datetime={update.date}>
+      {formattedDate} at {formattedTime}
+    </time>
+    <p class="timeline-event__message">{update.message}</p>
+  </div>
+</div>
+
+<style>
+  .timeline-event {
+    display: flex;
+    gap: var(--space-md);
+    position: relative;
+    padding-bottom: var(--space-lg);
+  }
+
+  .timeline-event:last-child {
+    padding-bottom: 0;
+  }
+
+  .timeline-event__dot {
+    flex-shrink: 0;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--color-timeline-dot);
+    margin-top: 6px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .timeline-event__content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .timeline-event__time {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .timeline-event__message {
+    font-size: 0.85rem;
+    color: var(--color-text);
+    margin-top: var(--space-xs);
+  }
+</style>

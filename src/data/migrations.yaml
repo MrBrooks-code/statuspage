@@ -1,0 +1,58 @@
+branding:
+  companyName: "Status Tracker"
+  logoUrl: /lorem-ipsum-synthwave.png
+  primaryColor: "#4F1D61"
+  secondaryColor: "#BE86DB"
+
+# Corporate Primary   - 2563eb
+# Corporate Secondary - fafafa
+
+
+siteTitle: Quark's Bar Systems Migration
+siteDescription: Modernizing bar operations to Federation-standard systems across holosuites, replicators, and point-of-sale.
+
+# Statuses are 
+# - not-started
+# - in-progress
+# - completed
+
+activities:
+  - id: holosuite-modernization
+    name: Holosuite Modernization
+    description: Migrate holosuite programs from Cardassian legacy systems to Federation-compatible format.
+    status: in-progress
+    tasks:
+      - name: Recalibrate safety protocols
+        status: in-progress
+      - name: Deploy new payment terminal — latinum and credit
+        status: completed
+      - name: Stress test Holosuite 3
+        status: not-started
+
+
+  - id: replicator-overhaul
+    name: Replicator System Overhaul
+    description: Migrate System Accounts.
+    status: not-started
+    tasks:
+      - name: Audit current menu
+        status: not-started
+      - name: Migrate recipe database from Terok Nor era storage to modern isolinear format
+        status: not-started
+      - name: Integrate dynamic pricing module for Quark
+        status: not-started
+      - name: Investigate root beer taste
+        status: not-started
+
+
+updates:
+  - date: "2026-02-20T14:30:00Z"
+    message: Holosuite 3 keeps crashing mid-program. Quark insists it's a feature.
+  - date: "2026-02-18T10:00:00Z"
+    message: New replicator menu deployed. Root beer still tastes like a Federation plot.
+  - date: "2026-02-16T09:00:00Z"
+    message: Rom rewired the dabo table. It now pays out correctly. Quark is furious.
+  - date: "2026-02-14T16:45:00Z"
+    message: Odo found the secret liquor inventory database. Quark claims it was 'a backup.'
+  - date: "2026-02-05T11:20:00Z"
+    message: Grand Nagus approved the bar expansion. Three strips of latinum over budget already.
