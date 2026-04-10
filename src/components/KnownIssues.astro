@@ -1,0 +1,169 @@
+---
+interface Issue {
+  title: string;
+  description?: string;
+  severity?: "critical" | "major" | "minor";
+  since?: string;
+  link?: string;
+  linkLabel?: string;
+}
+
+interface Props {
+  issues?: Issue[];
+  heading?: string;
+}
+
+const { issues, heading = "Known Issues" } = Astro.props;
+
+if (!issues || issues.length === 0) return null;
+
+const severityLabel: Record<string, string> = {
+  critical: "Critical",
+  major: "Major",
+  minor: "Minor",
+};
+
+function formatSince(since?: string): string | null {
+  if (!since) return null;
+  const d = new Date(since);
+  if (Number.isNaN(d.getTime())) return since;
+  return d.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" });
+}
+---
+
+<section class="known-issues">
+  <h2 class="known-issues__heading">{heading}</h2>
+  <ul class="known-issues__list">
+    {issues.map((issue) => {
+      const sinceLabel = formatSince(issue.since);
+      return (
+        <li class="issue">
+          <div class="issue__header">
+            <h3 class="issue__title">{issue.title}</h3>
+            {issue.severity && (
+              <span class="issue__severity" data-severity={issue.severity}>
+                {severityLabel[issue.severity] ?? issue.severity}
+              </span>
+            )}
+          </div>
+          {issue.description && <p class="issue__description">{issue.description}</p>}
+          {(sinceLabel || issue.link) && (
+            <div class="issue__meta">
+              {sinceLabel && <span class="issue__since">Since {sinceLabel}</span>}
+              {issue.link && (
+                <a class="issue__link" href={issue.link}>
+                  {issue.linkLabel ?? "More info"}
+                </a>
+              )}
+            </div>
+          )}
+        </li>
+      );
+    })}
+  </ul>
+</section>
+
+<style>
+  .known-issues {
+    margin-top: var(--space-2xl);
+  }
+
+  .known-issues__heading {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: var(--space-lg);
+  }
+
+  .known-issues__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .issue {
+    padding: var(--space-md) var(--space-lg);
+    border: 1px solid var(--color-border);
+    border-left-width: 4px;
+    border-radius: var(--radius-md);
+    background: var(--color-bg-surface);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .issue:has(.issue__severity[data-severity="critical"]) {
+    border-left-color: var(--color-red);
+  }
+
+  .issue:has(.issue__severity[data-severity="major"]) {
+    border-left-color: var(--color-yellow);
+  }
+
+  .issue:has(.issue__severity[data-severity="minor"]) {
+    border-left-color: var(--color-gray);
+  }
+
+  .issue__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+  }
+
+  .issue__title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-text);
+  }
+
+  .issue__severity {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: var(--radius-full);
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1.6;
+    white-space: nowrap;
+  }
+
+  .issue__severity[data-severity="critical"] {
+    background: var(--color-red-bg);
+    color: var(--color-red);
+  }
+
+  .issue__severity[data-severity="major"] {
+    background: var(--color-yellow-bg);
+    color: var(--color-yellow);
+  }
+
+  .issue__severity[data-severity="minor"] {
+    background: var(--color-gray-bg);
+    color: var(--color-gray);
+  }
+
+  .issue__description {
+    margin-top: var(--space-sm);
+    color: var(--color-text-secondary);
+    font-size: 0.9rem;
+  }
+
+  .issue__meta {
+    margin-top: var(--space-sm);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm) var(--space-lg);
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+  }
+
+  .issue__link {
+    color: var(--color-brand-primary);
+    text-decoration: none;
+  }
+
+  .issue__link:hover {
+    text-decoration: underline;
+  }
+</style>
