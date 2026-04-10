@@ -4,6 +4,7 @@ import SiteHeader from "../components/SiteHeader.astro";
 import Banner from "../components/Banner.astro";
 import SummaryMetrics from "../components/SummaryMetrics.astro";
 import ActivityList from "../components/ActivityList.astro";
+import KnownIssues from "../components/KnownIssues.astro";
 import Timeline from "../components/Timeline.astro";
 import HelpSection from "../components/HelpSection.astro";
 import data from "../data/migrations.yaml";
@@ -29,6 +30,7 @@ const branding = data.branding;
     </header>
     <SummaryMetrics activities={data.activities} />
     <ActivityList activities={data.activities} />
+    <KnownIssues issues={data.knownIssues} />
     <Timeline updates={data.updates} />
     <HelpSection support={data.support} />
   </main>

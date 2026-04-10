@@ -66,6 +66,20 @@ support:
     - label: "Submit a Ticket"
       url: "https://example.com/ticket"
 
+# Known issues — dynamically populated list of current problems.
+# Omit the block or leave it empty to hide the section entirely.
+# Each issue: title (required), description, severity (critical|major|minor),
+# since (ISO date), link, linkLabel — all optional except title.
+knownIssues:
+  - title: "Holosuite 3 crashes mid-program"
+    description: "Intermittent crashes during peak hours. Quark insists it is a feature."
+    severity: major
+    since: "2026-02-20"
+  - title: "Root beer tastes like a Federation plot"
+    description: "Replicated root beer flavor profile off by 12%. Investigation ongoing."
+    severity: minor
+    since: "2026-02-18"
+
 updates:
   - date: "2026-02-20T14:30:00Z"
     message: Holosuite 3 keeps crashing mid-program. Quark insists it's a feature.
