@@ -1,8 +1,8 @@
 branding:
   companyName: "Status Tracker"
   logoUrl: /lorem-ipsum-synthwave.png
-  primaryColor: "#4F1D61"
-  secondaryColor: "#BE86DB"
+  primaryColor: "#2563eb"
+  secondaryColor: "#fafafa"
 
 # Corporate Primary   - 2563eb
 # Corporate Secondary - fafafa
@@ -10,6 +10,14 @@ branding:
 
 siteTitle: Quark's Bar Systems Migration
 siteDescription: Modernizing bar operations to Federation-standard systems across holosuites, replicators, and point-of-sale.
+
+# Optional banner override. Any field you omit falls back to the auto-computed
+# value derived from activity statuses. Remove the whole block to fully auto-compute.
+# level options: green | blue | red | gray
+banner:
+  label: "Migrations In Progress"
+  description: "Quark is watching closely."
+  level: blue
 
 # Statuses are 
 # - not-started
@@ -44,6 +52,19 @@ activities:
       - name: Investigate root beer taste
         status: not-started
 
+
+# Optional support/help section. Omit the block to hide the section entirely.
+# All fields are optional — include only what you want to show.
+support:
+  heading: "Need Help?"
+  description: "Having trouble with the migration? Reach out to the team or check our docs."
+  email: "ops@quarks-bar.example"
+  phone: "+1 555-0134"
+  links:
+    - label: "Status History"
+      url: "https://example.com/history"
+    - label: "Submit a Ticket"
+      url: "https://example.com/ticket"
 
 updates:
   - date: "2026-02-20T14:30:00Z"
