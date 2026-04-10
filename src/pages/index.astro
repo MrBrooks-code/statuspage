@@ -5,6 +5,7 @@ import Banner from "../components/Banner.astro";
 import SummaryMetrics from "../components/SummaryMetrics.astro";
 import ActivityList from "../components/ActivityList.astro";
 import Timeline from "../components/Timeline.astro";
+import HelpSection from "../components/HelpSection.astro";
 import data from "../data/migrations.yaml";
 
 const branding = data.branding;
@@ -20,7 +21,7 @@ const branding = data.branding;
     companyName={branding?.companyName}
     logoUrl={branding?.logoUrl}
   />
-  <Banner activities={data.activities} />
+  <Banner activities={data.activities} override={data.banner} />
   <main class="container">
     <header class="page-header">
       <h1>{data.siteTitle}</h1>
@@ -29,6 +30,7 @@ const branding = data.branding;
     <SummaryMetrics activities={data.activities} />
     <ActivityList activities={data.activities} />
     <Timeline updates={data.updates} />
+    <HelpSection support={data.support} />
   </main>
   <footer class="container page-footer">
     <p>Last updated at build time. All data is static.</p>

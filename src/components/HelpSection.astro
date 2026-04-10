@@ -1,0 +1,121 @@
+---
+interface HelpLink {
+  label: string;
+  url: string;
+}
+
+interface Support {
+  heading?: string;
+  description?: string;
+  email?: string;
+  phone?: string;
+  links?: HelpLink[];
+}
+
+interface Props {
+  support?: Support;
+}
+
+const { support } = Astro.props;
+
+if (!support) return null;
+
+const heading = support.heading ?? "Need Help?";
+const hasContact = Boolean(support.email || support.phone);
+const hasLinks = Boolean(support.links && support.links.length > 0);
+
+if (!support.description && !hasContact && !hasLinks) return null;
+---
+
+<section class="help">
+  <h2 class="help__heading">{heading}</h2>
+  {support.description && <p class="help__description">{support.description}</p>}
+
+  {hasContact && (
+    <ul class="help__contacts">
+      {support.email && (
+        <li>
+          <span class="help__label">Email</span>
+          <a href={`mailto:${support.email}`}>{support.email}</a>
+        </li>
+      )}
+      {support.phone && (
+        <li>
+          <span class="help__label">Phone</span>
+          <a href={`tel:${support.phone.replace(/\s+/g, "")}`}>{support.phone}</a>
+        </li>
+      )}
+    </ul>
+  )}
+
+  {hasLinks && (
+    <ul class="help__links">
+      {support.links!.map((link) => (
+        <li>
+          <a href={link.url}>{link.label}</a>
+        </li>
+      ))}
+    </ul>
+  )}
+</section>
+
+<style>
+  .help {
+    margin-top: var(--space-2xl);
+    padding: var(--space-lg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-bg-surface);
+    color: var(--color-text);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .help__heading {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: var(--space-sm);
+  }
+
+  .help__description {
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-md);
+  }
+
+  .help__contacts,
+  .help__links {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-sm) 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm) var(--space-lg);
+  }
+
+  .help__contacts li {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-xs);
+  }
+
+  .help__label {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--color-text-muted);
+  }
+
+  .help__links {
+    margin-top: var(--space-sm);
+    padding-top: var(--space-sm);
+    border-top: 1px solid var(--color-border-light);
+  }
+
+  .help a {
+    color: var(--color-brand-primary);
+    text-decoration: none;
+  }
+
+  .help a:hover {
+    text-decoration: underline;
+  }
+</style>

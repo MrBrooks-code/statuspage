@@ -3,11 +3,18 @@ interface Activity {
   status: string;
 }
 
-interface Props {
-  activities: Activity[];
+interface BannerOverride {
+  label?: string;
+  description?: string;
+  level?: "green" | "blue" | "red" | "gray";
 }
 
-const { activities } = Astro.props;
+interface Props {
+  activities: Activity[];
+  override?: BannerOverride;
+}
+
+const { activities, override } = Astro.props;
 
 function computeHealth(activities: Activity[]): { level: string; label: string; description: string } {
   const statuses = activities.map((a) => a.status);
@@ -23,7 +30,12 @@ function computeHealth(activities: Activity[]): { level: string; label: string; 
   return { level: "gray", label: "Not Started", description: "No migration activities have started yet." };
 }
 
-const health = computeHealth(activities);
+const computed = computeHealth(activities);
+const health = {
+  level: override?.level ?? computed.level,
+  label: override?.label ?? computed.label,
+  description: override?.description ?? computed.description,
+};
 ---
 
 <div class="banner" data-level={health.level} role="status">
