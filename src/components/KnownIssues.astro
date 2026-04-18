@@ -32,35 +32,41 @@ function formatSince(since?: string): string | null {
 ---
 
 <section class="known-issues">
-  <h2 class="known-issues__heading">{heading}</h2>
-  <ul class="known-issues__list">
-    {issues.map((issue) => {
-      const sinceLabel = formatSince(issue.since);
-      return (
-        <li class="issue">
-          <div class="issue__header">
-            <h3 class="issue__title">{issue.title}</h3>
-            {issue.severity && (
-              <span class="issue__severity" data-severity={issue.severity}>
-                {severityLabel[issue.severity] ?? issue.severity}
-              </span>
-            )}
-          </div>
-          {issue.description && <p class="issue__description">{issue.description}</p>}
-          {(sinceLabel || issue.link) && (
-            <div class="issue__meta">
-              {sinceLabel && <span class="issue__since">Since {sinceLabel}</span>}
-              {issue.link && (
-                <a class="issue__link" href={issue.link}>
-                  {issue.linkLabel ?? "More info"}
-                </a>
+  <details class="known-issues__details">
+    <summary class="known-issues__summary">
+      <h2 class="known-issues__heading">{heading}</h2>
+      <span class="known-issues__count">{issues.length}</span>
+      <span class="known-issues__chevron" aria-hidden="true" />
+    </summary>
+    <ul class="known-issues__list">
+      {issues.map((issue) => {
+        const sinceLabel = formatSince(issue.since);
+        return (
+          <li class="issue">
+            <div class="issue__header">
+              <h3 class="issue__title">{issue.title}</h3>
+              {issue.severity && (
+                <span class="issue__severity" data-severity={issue.severity}>
+                  {severityLabel[issue.severity] ?? issue.severity}
+                </span>
               )}
             </div>
-          )}
-        </li>
-      );
-    })}
-  </ul>
+            {issue.description && <p class="issue__description">{issue.description}</p>}
+            {(sinceLabel || issue.link) && (
+              <div class="issue__meta">
+                {sinceLabel && <span class="issue__since">Since {sinceLabel}</span>}
+                {issue.link && (
+                  <a class="issue__link" href={issue.link}>
+                    {issue.linkLabel ?? "More info"}
+                  </a>
+                )}
+              </div>
+            )}
+          </li>
+        );
+      })}
+    </ul>
+  </details>
 </section>
 
 <style>
@@ -68,15 +74,76 @@ function formatSince(since?: string): string | null {
     margin-top: var(--space-2xl);
   }
 
+  .known-issues__details {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-bg-surface);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .known-issues__summary {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-md) var(--space-lg);
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+  }
+
+  .known-issues__summary::-webkit-details-marker {
+    display: none;
+  }
+
   .known-issues__heading {
     font-size: 1.25rem;
     font-weight: 700;
-    margin-bottom: var(--space-lg);
+  }
+
+  .known-issues__count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 22px;
+    height: 22px;
+    padding: 0 6px;
+    border-radius: var(--radius-full);
+    background: var(--color-red-bg);
+    color: var(--color-red);
+    font-size: 0.75rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .known-issues__chevron {
+    margin-left: auto;
+    width: 20px;
+    height: 20px;
+    transition: transform 0.2s ease;
+    background: none;
+    position: relative;
+  }
+
+  .known-issues__chevron::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 8px;
+    height: 8px;
+    border-right: 2px solid var(--color-text-muted);
+    border-bottom: 2px solid var(--color-text-muted);
+    transform: translate(-50%, -65%) rotate(45deg);
+    transition: transform 0.2s ease;
+  }
+
+  .known-issues__details[open] .known-issues__chevron::before {
+    transform: translate(-50%, -35%) rotate(-135deg);
   }
 
   .known-issues__list {
     list-style: none;
-    padding: 0;
+    padding: 0 var(--space-lg) var(--space-lg);
     margin: 0;
     display: flex;
     flex-direction: column;
@@ -88,8 +155,7 @@ function formatSince(since?: string): string | null {
     border: 1px solid var(--color-border);
     border-left-width: 4px;
     border-radius: var(--radius-md);
-    background: var(--color-bg-surface);
-    box-shadow: var(--shadow-sm);
+    background: var(--color-bg);
   }
 
   .issue:has(.issue__severity[data-severity="critical"]) {
