@@ -11,6 +11,19 @@ branding:
 siteTitle: Quark's Bar Systems Migration
 siteDescription: Modernizing bar operations to Federation-standard systems across holosuites, replicators, and point-of-sale.
 
+knownIssues:
+  - title: "Holosuite 3 crashes mid-program"
+    description: "Intermittent crashes during peak hours. Quark insists it is a feature."
+    severity: major
+    since: "2026-02-20"
+  - title: "Root beer tastes like a Federation plot"
+    description: "Replicated root beer flavor profile off by 12%. Investigation ongoing."
+    severity: minor
+    since: "2026-02-18"
+
+# Optional footer text. Omit the field (or leave empty) to hide the footer.
+footer: "© Quark's Bar — Deep Space Nine"
+
 # Optional banner override. Any field you omit falls back to the auto-computed
 # value derived from activity statuses. Remove the whole block to fully auto-compute.
 # level options: green | blue | red | gray
@@ -70,15 +83,6 @@ support:
 # Omit the block or leave it empty to hide the section entirely.
 # Each issue: title (required), description, severity (critical|major|minor),
 # since (ISO date), link, linkLabel — all optional except title.
-knownIssues:
-  - title: "Holosuite 3 crashes mid-program"
-    description: "Intermittent crashes during peak hours. Quark insists it is a feature."
-    severity: major
-    since: "2026-02-20"
-  - title: "Root beer tastes like a Federation plot"
-    description: "Replicated root beer flavor profile off by 12%. Investigation ongoing."
-    severity: minor
-    since: "2026-02-18"
 
 updates:
   - date: "2026-02-20T14:30:00Z"

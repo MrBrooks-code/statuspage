@@ -28,15 +28,17 @@ const branding = data.branding;
       <h1>{data.siteTitle}</h1>
       <p>{data.siteDescription}</p>
     </header>
+    <KnownIssues issues={data.knownIssues} />
     <SummaryMetrics activities={data.activities} />
     <ActivityList activities={data.activities} />
-    <KnownIssues issues={data.knownIssues} />
     <Timeline updates={data.updates} />
     <HelpSection support={data.support} />
   </main>
-  <footer class="container page-footer">
-    <p>Last updated at build time. All data is static.</p>
-  </footer>
+  {data.footer && (
+    <footer class="container page-footer">
+      <p>{data.footer}</p>
+    </footer>
+  )}
 </BaseLayout>
 
 <style>
