@@ -29,6 +29,13 @@ function formatSince(since?: string): string | null {
   if (Number.isNaN(d.getTime())) return since;
   return d.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" });
 }
+
+function linkify(text: string): string {
+  return text.replace(
+    /(https?:\/\/[^\s<>"')\]]+)/g,
+    '<a href="$1" class="issue__inline-link">$1</a>',
+  );
+}
 ---
 
 <section class="known-issues">
@@ -51,7 +58,7 @@ function formatSince(since?: string): string | null {
                 </span>
               )}
             </div>
-            {issue.description && <p class="issue__description">{issue.description}</p>}
+            {issue.description && <p class="issue__description" set:html={linkify(issue.description)} />}
             {(sinceLabel || issue.link) && (
               <div class="issue__meta">
                 {sinceLabel && <span class="issue__since">Since {sinceLabel}</span>}
@@ -230,6 +237,16 @@ function formatSince(since?: string): string | null {
   }
 
   .issue__link:hover {
+    text-decoration: underline;
+  }
+
+  .issue__inline-link {
+    color: var(--color-brand-primary);
+    text-decoration: none;
+    word-break: break-all;
+  }
+
+  .issue__inline-link:hover {
     text-decoration: underline;
   }
 </style>
