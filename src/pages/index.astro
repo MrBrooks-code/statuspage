@@ -28,7 +28,7 @@ const branding = data.branding;
       <h1>{data.siteTitle}</h1>
       <p>{data.siteDescription}</p>
     </header>
-    <KnownIssues issues={data.knownIssues} />
+    <KnownIssues issues={data.knownIssues} heading={data.knownIssuesHeading} />
     <SummaryMetrics activities={data.activities} />
     <ActivityList activities={data.activities} />
     <Timeline updates={data.updates} />
