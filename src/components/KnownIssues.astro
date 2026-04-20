@@ -6,6 +6,8 @@ interface Issue {
   since?: string;
   link?: string;
   linkLabel?: string;
+  image?: string;
+  imageAlt?: string;
 }
 
 interface Props {
@@ -59,6 +61,14 @@ function linkify(text: string): string {
               )}
             </div>
             {issue.description && <p class="issue__description" set:html={linkify(issue.description)} />}
+            {issue.image && (
+              <img
+                class="issue__image"
+                src={issue.image}
+                alt={issue.imageAlt ?? ""}
+                loading="lazy"
+              />
+            )}
             {(sinceLabel || issue.link) && (
               <div class="issue__meta">
                 {sinceLabel && <span class="issue__since">Since {sinceLabel}</span>}
@@ -220,6 +230,15 @@ function linkify(text: string): string {
     margin-top: var(--space-sm);
     color: var(--color-text-secondary);
     font-size: 0.9rem;
+  }
+
+  .issue__image {
+    display: block;
+    margin-top: var(--space-md);
+    max-width: 100%;
+    height: auto;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
   }
 
   .issue__meta {
