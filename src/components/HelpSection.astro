@@ -2,6 +2,7 @@
 interface HelpLink {
   label: string;
   url: string;
+  title?: string;
 }
 
 interface Support {
@@ -51,7 +52,8 @@ if (!support.description && !hasContact && !hasLinks) return null;
   {hasLinks && (
     <ul class="help__links">
       {support.links!.map((link) => (
-        <li>
+        <li class="help__link-item">
+          {link.title && <span class="help__link-title">{link.title}</span>}
           <a href={link.url}>{link.label}</a>
         </li>
       ))}
@@ -108,6 +110,20 @@ if (!support.description && !hasContact && !hasLinks) return null;
     margin-top: var(--space-sm);
     padding-top: var(--space-sm);
     border-top: 1px solid var(--color-border-light);
+  }
+
+  .help__link-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .help__link-title {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--color-text-muted);
+    font-weight: 600;
   }
 
   .help a {

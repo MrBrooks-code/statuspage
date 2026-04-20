@@ -28,11 +28,11 @@ const branding = data.branding;
       <h1>{data.siteTitle}</h1>
       <p>{data.siteDescription}</p>
     </header>
+    <HelpSection support={data.support} />
     <KnownIssues issues={data.knownIssues} heading={data.knownIssuesHeading} />
     <SummaryMetrics activities={data.activities} />
     <ActivityList activities={data.activities} />
     <Timeline updates={data.updates} />
-    <HelpSection support={data.support} />
   </main>
   {data.footer && (
     <footer class="container page-footer">
